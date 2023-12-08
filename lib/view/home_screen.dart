@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:screl_machine_test/controller/user_provider.dart';
+import 'package:screl_machine_test/helper/colors.dart';
 import 'package:screl_machine_test/view/details_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,47 +9,74 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: const Text("Student List"),
-        centerTitle: true,
+        title: const Center(
+          child: Text(
+            'Student List',
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w900,
+              color: cBlackColor,
+            ),
+          ),
+        ),
       ),
       body: Column(
         children: [
           Consumer<UserProvider>(
-            builder: (context, value, child) {
-              return ListView.separated(
-                itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: DetailsScreen(
-                      city: value.allLIst[index].city,
-                    email: value.allLIst[index].city,
-                    lat: value.allLIst[index].city,
-                    lng: value.allLIst[index].city,
-                    name: value.allLIst[index].city,
-                    street: value.allLIst[index].city,
-                    suit: value.allLIst[index].city,
-                    zipcode: value.allLIst[index].city,
-                    )));
-                  },
-                  child: Card(
-                    child: ListTile(
-                      title: Text("${value.allLIst[index].name}"),
-                      subtitle: Text("${value.allLIst[index].street}")
+            builder: (context, provider, child) {
+              return Expanded(
+                child: ListView.builder(
+                  itemCount: provider.userList.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => DetailsScreen(
+                            city: provider.userList[index].city,
+                            email: provider.userList[index].email,
+                            lat: provider.userList[index].lat,
+                            lng: provider.userList[index].lng,
+                            name: provider.userList[index].name,
+                            website: provider.userList[index].website,
+                            username: provider.userList[index].username, 
+                            bs: provider.userList[index].bs, 
+                            catchPhrase: provider.userList[index].catchPhrase,
+                            companyName: provider.userList[index].companyName,
+                            phone: provider.userList[index].phone,
+                            street: provider.userList[index].street,
+                            suite: provider.userList[index].suite,
+                            zipcode: provider.userList[index].zipcode,
+                          ),
+                        ));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: cRedColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: ListTile(
+                            title: Text(
+                              provider.userList[index].name,
+                              style: const TextStyle(color: cWhiteColor),
+                            ),
+                            subtitle: Text(
+                              provider.userList[index].phone,
+                              style: const TextStyle(color: cWhiteColor),
+                            ),
+                          ),
+                        ),
                       ),
-                  ),
-                );
-              }, separatorBuilder: (context, index) {
-               return const Divider();
-              }, 
-              itemCount: 10,
+                    );
+                  },
+                ),
               );
             },
-          )
+          ),
         ],
       ),
-    ));
+    );
   }
 }
