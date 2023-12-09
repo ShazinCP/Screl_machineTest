@@ -11,16 +11,16 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Student List',
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w900,
-              color: cBlackColor,
-            ),
+        title: Text(
+          'Student List',
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.w900,
+            color: cRedColor,
           ),
         ),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [
@@ -40,8 +40,8 @@ class HomeScreen extends StatelessWidget {
                             lng: provider.userList[index].lng,
                             name: provider.userList[index].name,
                             website: provider.userList[index].website,
-                            username: provider.userList[index].username, 
-                            bs: provider.userList[index].bs, 
+                            username: provider.userList[index].username,
+                            bs: provider.userList[index].bs,
                             catchPhrase: provider.userList[index].catchPhrase,
                             companyName: provider.userList[index].companyName,
                             phone: provider.userList[index].phone,
